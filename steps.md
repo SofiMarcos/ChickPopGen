@@ -4,6 +4,7 @@
 - BWA
 - SAMtools
 - Picard Tools
+- BEDtools 
 - GATK
 - R
 
@@ -78,6 +79,10 @@
 
   #### 1.3- Mapping statistics: 
    a) Depth of coverage (number of times a nucleotide is read during sequencing)
+   ```
+   samtools depth
+   gatk DepthOfCoverage
+   ```   
    
    b) Breath of coverage (percentage of bases of my reference genome that are covered at a certain depth)
    ```
@@ -89,7 +94,9 @@
    The default ouput format is formed by 5 columns: chromosome, depth of coverage from features in input file, number of bases on chromosome (with depth equal to 2, size of chromosome in base pairs and fraction of bases on chromosome with depth equal to column 2.   
    more details: https://bedtools.readthedocs.io/en/latest/content/tools/genomecov.html
    c) Callable loci (total number of sites sequenced with an specified min number of reads)
-   
+   ```
+   gatk CallableLoci
+   ```
    d) Stats and flagstat (stats collects statistics from BAM files and outputs in a text format,
     flagstat counts 13 different  categories)
   ```
@@ -104,13 +111,23 @@
  
 ### 2- Variant calling
   #### 2.1- Call variants: 
- 
+  ```
+  gatk --java-options "-Xmx4g" HaplotypeCaller -R reference.fa -I input.bam -O output.g.vcf.gz -ERC GVCF
+  ```
   There are two types of variation: 
   - single-nucleotide polymorphisms (SNPs)
   - insertion-deletios (indels)
   HaplotypeCaller is capable of calling both simultaneously
   The end product of the command will be a VCF file containing raw calls that should be filtered before they can be used in downstream  analyses 
+  ```
+  gatk --java-options "-Xmx4g -Xmx4g" GenomicsDBImport 
+  ```
  
+ 
+  ```
+  gatk --java-options "-Xmx4g -Xmx4g" GatherVcfs 
+  ```
+  
  
   #### 2.2- Variant quality score recalibration
   For SNPs 
@@ -123,8 +140,8 @@
 
 
 
-
-
+Done! We can start playing with the data! 
+Good luck!
 
 
 
