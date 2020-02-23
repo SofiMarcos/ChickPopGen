@@ -83,6 +83,7 @@
    ```
     bedtools genomecov -ibam sorted_alig_reads.bam -g reference.fa.fai -max 20 > sample_metrics.dcov 2> >(tee $logfile)
    ```
+   more details: https://bedtools.readthedocs.io/en/latest/content/tools/genomecov.html
    c) Callable loci (total number of sites sequenced with an specified min number of reads)
    
    d) Stats and flagstat (stats collects statistics from BAM files and outputs in a text format,
