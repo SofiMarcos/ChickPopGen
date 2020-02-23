@@ -73,14 +73,14 @@
   samtools view 
   ```  
 
-  	more details: http://www.htslib.org/doc/samtools-view.html
+  more details: http://www.htslib.org/doc/samtools-view.html
 
 
   #### 1.3- Mapping statistics: 
-    a) Depth of coverage (number of times a nucleotide is read during sequencing)
-    b) Breath of coverage (percentage of bases of my reference genome that are covered at a certain depth)
-    c) Callable loci (total number of sites sequenced with an specified min number of reads)
-    d) Stats and flagstat (stats collects statistics from BAM files and outputs in a text format,
+   a) Depth of coverage (number of times a nucleotide is read during sequencing)
+   b) Breath of coverage (percentage of bases of my reference genome that are covered at a certain depth)
+   c) Callable loci (total number of sites sequenced with an specified min number of reads)
+   d) Stats and flagstat (stats collects statistics from BAM files and outputs in a text format,
     flagstat counts 13 different  categories)
   ```
   samtools stats 
