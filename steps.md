@@ -135,12 +135,13 @@
  
 
   ### 3- Addition of variant annotations 
-   
+  In case we forget to specify an annotation, or you realize only later that a certain annotation would be useful, we can add variants later on. 
 
 
 
 
-Done! We can start playing with the data! 
+ ### 4-Done! 
+We can start playing with the data! 
 Good luck!
 
 
