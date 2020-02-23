@@ -41,6 +41,7 @@
   #### 0.4- Create a text file with chromosome names 
 
 
+
 ### 1- Mapping to the reference genome
   #### 1.1- Generate a SAM file containing aligned reads:
   ```
@@ -107,6 +108,8 @@
   #### 1.4- Local realignment around indels
  
   #### 1.5- Base quality score recalibration
+ 
+ 
  
  
 ### 2- Variant calling
