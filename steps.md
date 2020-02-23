@@ -78,13 +78,18 @@
 
   #### 1.3- Mapping statistics: 
    a) Depth of coverage (number of times a nucleotide is read during sequencing)
+   
    b) Breath of coverage (percentage of bases of my reference genome that are covered at a certain depth)
+    ```
+    bedtools genomecov -ibam sorted_alig_reads.bam -g reference.fa.fai -max 20 > sample_metrics.dcov 2> >(tee $logfile)
+    ```
    c) Callable loci (total number of sites sequenced with an specified min number of reads)
+   
    d) Stats and flagstat (stats collects statistics from BAM files and outputs in a text format,
     flagstat counts 13 different  categories)
   ```
-  samtools stats 
-  samtools flagstat
+  samtools stats sorted_alig_reads.bam > sample_metrics.stats
+  samtools flagstat sorted_alig_reads.bam > sample_metrics.flagstat
   ```
 
   #### 1.4- Local realignment around indels
