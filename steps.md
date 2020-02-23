@@ -83,6 +83,10 @@
    ```
     bedtools genomecov -ibam sorted_alig_reads.bam -g reference.fa.fai -max 20 > sample_metrics.dcov 2> >(tee $logfile)
    ```
+   Bedtools will compute a histogram of coverage for the genome. 
+   -max flag to specify maximum depth of the histogram
+   -d per-base
+   The default ouput format is formed by 5 columns: chromosome, depth of coverage from features in input file, number of bases on chromosome (with depth equal to 2, size of chromosome in base pairs and fraction of bases on chromosome with depth equal to column 2.   
    more details: https://bedtools.readthedocs.io/en/latest/content/tools/genomecov.html
    c) Callable loci (total number of sites sequenced with an specified min number of reads)
    
