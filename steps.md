@@ -16,9 +16,9 @@
 
 #### 0- Preparing the reference genome
 0.1- Generate the fasta gile index: 
-``
+```
 samtools faid reference.fa
-``
+```
 This creates a collection of files used by BWA to perform the alignement. Among these files, there will be a file called *reference.fa.fai* 
 This files contains one record per line for each of the contigs in the reference file
 Each record is composed of the contig name,  size, location, basePerLine and bytesPerLine. 
