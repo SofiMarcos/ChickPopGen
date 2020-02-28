@@ -110,7 +110,7 @@
   #### 1.5- Base quality score recalibration
  
  
- 
+## A) OPTION 
  
 ### 2- Variant calling
   #### 2.1- Call variants: 
@@ -165,7 +165,8 @@ Sometimes, your data set is just too small for variant recalibration to work pro
   In case we forget to specify an annotation, or you realize only later that a certain annotation would be useful, we can add variants later on. 
 
 
-
+## B) OPTION
+samtools mpileup
 
  ### Done! 
 We can start playing with the data! 
