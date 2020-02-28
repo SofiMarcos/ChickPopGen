@@ -132,9 +132,12 @@
   ```
   
  
-  #### 2.2- Variant quality score recalibration
-  For SNPs 
-  For indels
+  #### 2.2- option A) Variant quality score recalibration
+  Separe for SNPs and indels
+  For SNPs: 
+  For indels:
+ 
+ #### 2.2- option B) Variant filtration 
  
 
   ### 3- Addition of variant annotations 
@@ -143,7 +146,7 @@
 
 
 
- ### 4-Done! 
+ ### Done! 
 We can start playing with the data! 
 Good luck!
 
