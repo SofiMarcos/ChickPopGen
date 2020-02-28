@@ -16,7 +16,7 @@
 ### Steps:
 
 ### 0- Preparing the reference genome
-  #### 0.1- Generate the fasta gile index: 
+  #### 0.1- Generate the fasta file index: 
   ```
   samtools faid reference.fa
   ```
@@ -114,31 +114,52 @@
  
 ### 2- Variant calling
   #### 2.1- Call variants: 
-  ```
-  gatk --java-options "-Xmx4g" HaplotypeCaller -R reference.fa -I input.bam -O output.g.vcf.gz -ERC GVCF
-  ```
-  There are two types of variation: 
-  - single-nucleotide polymorphisms (SNPs)
-  - insertion-deletios (indels)
-  HaplotypeCaller is capable of calling both simultaneously
-  The end product of the command will be a VCF file containing raw calls that should be filtered before they can be used in downstream  analyses 
-  ```
-  gatk --java-options "-Xmx4g -Xmx4g" GenomicsDBImport 
-  ```
- 
- 
-  ```
-  gatk --java-options "-Xmx4g -Xmx4g" GatherVcfs 
-  ```
-  
- 
-  #### 2.2- option A) Variant quality score recalibration
-  Separe for SNPs and indels
-  For SNPs: 
-  For indels:
- 
+
+VARIANT CALLING
+
+HaplotypeCaller calls for two types of variation (via local de-novo assembly): 
+- single nucleotide polymorphisms (SNPs)
+- insertion-deletinos (indels)
+
+The end product of this protocol will be a VCF file containing raw calls that should be filtered before they can be used
+
+Variant calling > specifying parameters
+
+-genotyping_mode:
+	> DISCOVERY: will choose the most likely alleles out of the data
+	> GENOTYPE_GIVEN_ALLELES: only use the alleles passed in from a VCF file 
+		(for this, specify the file using -alleles argument)
+
+-output_mode:
+	> EMIT_VARIANTS_ONLY: only calls in sites that appear to be variant (high or low confidence)
+	> EMIT_ALL_CONFIDENT_SITES: sites with high confidence, whether the site is variant or non variant
+	> EMIT_ALL_SITES: calls at any callable site (high or low confidence). Not okay for DISCOVERY mode
+	
+- stand_emit_conf:minimun confidence threshold 
+
+-  stand_call_conf:
+ ```
+GenomeAnalysisTK.jar -T HaplotypeCaller -R reference.fa -I reduced_reads.bam -L 20 -- (specify parameters) -O raw_variants.vcf
+ ```
+This creates a file containing all the sites that the HaplotypeCaller evaluated to be potentially variant
+It contains SNPs and indels
+
+
+#### 2.2- option A) Variant quality score recalibration
+
+2 steps:
+- machine learning for well-calibrated probability to each variant call
+- uses this score to filter raw calls
+
+	RECALIBRATING VARIANT QUALITY SCORES FOR SNPs
+	
+	RECALIBRATING VARIANT QUALITY SCORES FOR INDELS
+
+
+
  #### 2.2- option B) Variant filtration 
- 
+Sometimes, your data set is just too small for variant recalibration to work properly. 
+
 
   ### 3- Addition of variant annotations 
   In case we forget to specify an annotation, or you realize only later that a certain annotation would be useful, we can add variants later on. 
