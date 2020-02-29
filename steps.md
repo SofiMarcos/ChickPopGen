@@ -205,7 +205,7 @@ bcftools filter
 
 4- zip:
 
-
+more details: http://samtools.github.io/bcftools/bcftools.html#mpileup
 
  ### Done! 
 We can start playing with the data! 
