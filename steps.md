@@ -188,12 +188,23 @@ Flags that might be interesting:
 -m multi allelic caller
 -v variants only
 
+3- Index:
+```
+tabix -p vcf 
+```
+
+4- Stats:
+```
+bcftools stats -F ref.fa 
+```
+
 3- Apply fixed-threshold filters:
 ```
 bcftools filter 
 ```
 
-4- zip and index
+4- zip:
+
 
 
  ### Done! 
