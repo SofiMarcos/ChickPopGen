@@ -169,7 +169,7 @@ Better to use hard-filtering instead
 ## B) OPTION
 Using BCFtools from SAMtools. Can be single- and multi-sample calling 
 
-1- Generate VCF containing genotype likelihoods for one or multiple alignement files: 
+1- Pile up reads to generate a VCF file containing genotype likelihoods for one or multiple alignement files: 
 ```
 bcftools mpileup -C 50 -q -Q -Ou -f reference.fa.fai -r mapped_reads.bam mapped_reads2.bam mapped_reads3.bam
 ```
@@ -180,7 +180,7 @@ Flags that might be interesting:
 -Ou output uncompressed vcf
 -r specify region. Requires the alignement files to be indexed. 
 
-2- Variant calling command from the output of mpileup command:
+2- Variant calling from a VCF file:
 ```
 bcftools call -Ou -m -v
 ```
