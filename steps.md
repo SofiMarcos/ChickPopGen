@@ -60,10 +60,15 @@
   more details: http://bio-bwa.sourceforge.net/bwa.shtml
 
 
-  #### 1.2- Sorting SAM into coordinate order and save as BAM:
-  Different approaches can be used: samtools or Picard. 
+  #### 1.2- Fixing SAM files and saving as BAM/CRAM:
+  Sometimes BWA can leave unusual FLAG information on SAM files. Helpful to clean up read pairing information and flags:
   ```
-  samtools sort -o sorted.bam input.sam
+  samtools fixmate -O bam fixed.bam input.sam
+  ```
+  
+  Sort bam files from name order into coordinate order. Different approaches can be used: samtools or Picard. 
+  ```
+  samtools sort -O bam sorted.bam input.bam
   picard sortsam 
   ```
   more details: http://www.htslib.org/doc/samtools-sort.html#DESCRIPTION //
@@ -76,6 +81,10 @@
 
   more details: http://www.htslib.org/doc/samtools-view.html
 
+  Converting to CRAM format: 
+  ``` 
+  samtools view -T ref.fa -C -o output.cram input.bam
+  ``` 
 
   #### 1.3- Mapping statistics: 
    a) Depth of coverage (number of times a nucleotide is read during sequencing)
