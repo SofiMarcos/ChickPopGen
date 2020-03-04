@@ -111,7 +111,49 @@
  
  
 ### 2- Variant calling
-## A) OPTION 
+
+## OPTION A - SAMTOOLS
+Using BCFtools from SAMtools. Can be single- and multi-sample calling 
+
+1- Pile up reads to generate a VCF file containing genotype likelihoods for one or multiple alignement files: 
+```
+bcftools mpileup -C 50 -q -Q -Ou -f reference.fa.fai -r mapped_reads.bam mapped_reads2.bam mapped_reads3.bam
+```
+Flags that might be interesting: 
+-C coefficient for downgrading mapping quality for reads containig excessive missmatches. The recommended value for BWA is 50
+-q minimum mapping quality 
+-Q base quality
+-Ou output uncompressed vcf
+-r specify region. Requires the alignement files to be indexed. 
+
+2- Variant calling from a VCF file:
+```
+bcftools call -Ou -m -v
+```
+Flags that might be interesting:
+-m multi allelic caller
+-v variants only
+
+3- Index:
+```
+tabix -p vcf 
+```
+
+4- Stats:
+```
+bcftools stats -F ref.fa 
+```
+
+3- Apply fixed-threshold filters:
+```
+bcftools filter 
+```
+
+4- zip:
+
+more details: http://samtools.github.io/bcftools/bcftools.html#mpileup
+
+## OPTION B - GATK
   #### 2.1- Call variants: 
 
 HaplotypeCaller calls for two types of variation (via local de-novo assembly): 
@@ -166,46 +208,7 @@ Better to use hard-filtering instead
   In case we forget to specify an annotation, or you realize only later that a certain annotation would be useful, we can add variants later on. 
 
 
-## B) OPTION
-Using BCFtools from SAMtools. Can be single- and multi-sample calling 
 
-1- Pile up reads to generate a VCF file containing genotype likelihoods for one or multiple alignement files: 
-```
-bcftools mpileup -C 50 -q -Q -Ou -f reference.fa.fai -r mapped_reads.bam mapped_reads2.bam mapped_reads3.bam
-```
-Flags that might be interesting: 
--C coefficient for downgrading mapping quality for reads containig excessive missmatches. The recommended value for BWA is 50
--q minimum mapping quality 
--Q base quality
--Ou output uncompressed vcf
--r specify region. Requires the alignement files to be indexed. 
-
-2- Variant calling from a VCF file:
-```
-bcftools call -Ou -m -v
-```
-Flags that might be interesting:
--m multi allelic caller
--v variants only
-
-3- Index:
-```
-tabix -p vcf 
-```
-
-4- Stats:
-```
-bcftools stats -F ref.fa 
-```
-
-3- Apply fixed-threshold filters:
-```
-bcftools filter 
-```
-
-4- zip:
-
-more details: http://samtools.github.io/bcftools/bcftools.html#mpileup
 
  ### Done! 
 We can start playing with the data! 
