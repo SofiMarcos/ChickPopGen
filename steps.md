@@ -126,7 +126,7 @@ Using BCFtools from SAMtools. Can be single- and multi-sample calling
 
 1- Pile up reads to generate a VCF file containing genotype likelihoods for one or multiple alignement files: 
 ```
-bcftools mpileup -C 50 -q -Q -Ou -f reference.fa.fai -r mapped_reads.bam mapped_reads2.bam mapped_reads3.bam
+bcftools mpileup -C 50 -q -Q -Ou -o mapped_read.bcf -f reference.fa.fai -r mapped_reads.bam mapped_reads2.bam mapped_reads3.bam
 ```
 Flags that might be interesting: 
 -C coefficient for downgrading mapping quality for reads containig excessive missmatches. The recommended value for BWA is 50
@@ -135,9 +135,11 @@ Flags that might be interesting:
 -Ou output uncompressed vcf
 -r specify region. Requires the alignement files to be indexed. 
 
+BCF is the binary variant format of VCF. BCF is much more efficient to process specially for many samples. 
+
 2- Variant calling from a VCF file:
 ```
-bcftools call -Ou -m -v
+bcftools call -Ou -m -v -o mapped_read.vcf.gz study.bcf
 ```
 Flags that might be interesting:
 -m multi allelic caller
@@ -145,7 +147,7 @@ Flags that might be interesting:
 
 3- Index:
 ```
-tabix -p vcf 
+tabix -p vcf mapped_read.vcf.gz
 ```
 
 4- Stats:
@@ -155,10 +157,14 @@ bcftools stats -F ref.fa
 
 3- Apply fixed-threshold filters:
 ```
-bcftools filter 
+bcftools filter -s LowQual 
 ```
 
 4- zip:
+gzip -c output.vcf > ouput.vcf.gz
+
+5- Validate variants:
+gatk ValidateVariants -V output.vcf -R reference.fa
 
 more details: http://samtools.github.io/bcftools/bcftools.html#mpileup
 
