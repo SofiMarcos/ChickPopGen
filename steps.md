@@ -68,9 +68,11 @@
   
   Sort bam files from name order into coordinate order. Different approaches can be used: samtools or Picard. 
   ```
-  samtools sort -O bam sorted.bam input.bam
-  picard sortsam 
+  samtools sort -O cram -l 0 sorted.bam input.bam
   ```
+  -O output format (bam, cram)
+  -l compression level (ranging from 0 not compressed to 9 super compressed)
+  
   more details: http://www.htslib.org/doc/samtools-sort.html#DESCRIPTION //
   https://broadinstitute.github.io/picard/command-line-overview.html#SortSam
 
