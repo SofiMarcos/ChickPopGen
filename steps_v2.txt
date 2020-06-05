@@ -59,7 +59,7 @@ module load bedtools/2.28.0
   # 1.5- Breadth/Depth con samtools --> con el flag -a le pides que enumere los bases cubiertos y no cubiertos. De aquí se pueden sacar estos datos
   samtools depth -a ${SAMPLE}_map2host.bam > ${SAMPLE}.depth
   less ${SAMPLE}.depth | awk '{c++;s+=$3}END{print s/c}' # overall depth
-  less ${SAMPLE}.depth | awk -F "[(|%]" 'NR == 3 {print $2}' # overall breadth
+  less ${SAMPLE}.depth | awk '{c++; if($3>0) total+=1}END{print (total/c)*100}' # overall breadth
 
   # 1.6- Breadth --> también como samtools depth
   bedtools genomecov -ibam .bam -d g ${REF}.fai -max 20 > ${SAMPLE}.dcov 2> >(tee "$logfile") # con -d registra las bases cubiertas y no cubiertas
