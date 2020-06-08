@@ -68,6 +68,7 @@ module load bedtools/2.28.0
 # 2- Calling variants and filtering
 module load bcftools/1.9
 
+samtools index ${SAMPLE}.bam
 find *_sorted.bam > samples_list.txt # tiene que ser un file con los nombres de las muestras, pero el nombre que tienen en el SAM header
 chromosomes.txt # tienen que aparecer los nombres de los cromosomas como aparecen en NCBI, pero creo que es más recomendable hacer el variant cal para cada cromosoma aparte, para después estudiar las estadísticas. Yo hago separado.
 bcftools mpileup -C 50 -q 30 -Q 20 -Ou -f $REF --regions-file chromosomes.txt --samples-file samples_list.txt | bcftools call -Ou -m -v | bcftools filter -s LowQual -e '%QUAL<30 || DP<(AVG(DP)*3)'-Oz -o call_all_${CHR}.vcf.gz
